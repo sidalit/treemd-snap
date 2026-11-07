@@ -1,0 +1,62 @@
+name: treemd
+base: core26
+version: '0.10.0'
+title: treemd
+summary: Navigate, query and edit markdown documents in your terminal
+description: |
+  treemd shows a markdown document as a navigable outline next to its rendered
+  content, with syntax highlighting, tables, task lists, images and Mermaid
+  diagrams. A jq-like query language extracts headings, links, code blocks and
+  other elements for scripts.
+
+  **Examples**
+
+     treemd README.md
+     treemd -q '.h2' README.md
+     treemd https://example.com/guide.md
+
+  **File access**
+
+  treemd can open documents in your home directory and from URLs. To also open
+  documents on USB drives and other removable media (/media, /mnt), run:
+
+     sudo snap connect treemd:removable-media
+license: MIT
+grade: stable
+confinement: strict
+website: https://github.com/Epistates/treemd
+source-code:
+  - https://github.com/Epistates/treemd
+  - https://github.com/sidalit/treemd-snap
+issues:
+  - https://github.com/Epistates/treemd/issues
+  - https://github.com/sidalit/treemd-snap/issues
+contact: https://github.com/sidalit/treemd-snap/issues
+
+platforms:
+  amd64:
+  arm64:
+
+apps:
+  treemd:
+    command: bin/treemd
+    plugs:
+      - home
+      - network
+      - removable-media
+      # Copying uses the Wayland or X11 clipboard.
+      - wayland
+      - x11
+
+parts:
+  treemd:
+    plugin: rust
+    source: https://github.com/Epistates/treemd.git
+    source-tag: v$SNAPCRAFT_PROJECT_VERSION
+    source-depth: 1
+    rust-channel: stable
+    build-packages:
+      - build-essential
+    override-build: |
+      craftctl default
+      install -Dm644 LICENSE -t "$CRAFT_PART_INSTALL/usr/share/doc/treemd"
