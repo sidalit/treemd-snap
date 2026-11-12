@@ -47,6 +47,10 @@ apps:
       # Copying uses the Wayland or X11 clipboard.
       - wayland
       - x11
+    environment:
+      XDG_CONFIG_HOME: $SNAP_USER_DATA/.config
+      XDG_DATA_HOME: $SNAP_USER_DATA/.local/share
+      XDG_CACHE_HOME: $SNAP_USER_COMMON/.cache
 
 parts:
   treemd:
