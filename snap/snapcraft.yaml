@@ -1,6 +1,6 @@
 name: treemd
 base: core26
-version: '0.10.0'
+version: '0.11.0'
 title: treemd
 summary: Navigate, query and edit markdown documents in your terminal
 description: |
